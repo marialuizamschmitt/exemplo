@@ -3,28 +3,34 @@
     padding:0;
   }
   
+.bg{
+  background-color: #9ecdf3;
+}
+
   header{
     border-bottom: 1px solid #1b85dc;
     height: 10vh;
+    align-items: center;
     display:flex;
-  }
-  
-  #logo{
-    width: 30vw;
-    height: 10vh;
+    justify-content: space-between;
+    background-color: #0056B3;
+    box-shadow: 0 0 7px #0a4677;
+
   }
   
   #logo img{
     height: 8vh;
+    margin-top: 7px;
   }
+
   #display{
-    width: 50vw;
+    color: white;
+    font-size: 30
+    px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-top: 24px;
   }
-  
-  #user{
-    width: 20vw;
-  }
-  
+
   main{
     margin: 2vh 2vw;
     min-height: 80vh;
@@ -36,6 +42,10 @@
     justify-content: space-around;
   }
   
+  .card-body{
+    box-shadow: 0 0 7px #2087db;
+  }
+
   .card a{
     text-decoration: none;
   }
@@ -46,7 +56,9 @@
     display:none;
     width: 90vw;
     padding:10px;
-   
+    background-color: white;
+    box-shadow: 0 0 7px #2087db;
+
   }
   
   #close-modal{
@@ -59,11 +71,16 @@
     padding:2vh 2vw;
     display:none;
     width: 90vw;
+    box-shadow: 0 0 7px #2087db;
+    background-color: #e6f2fd; 
   }
-  
+
   #controls-note{
     display:flex;
     gap:10px;
   }
-  
+
+  .form-control{
+    box-shadow: 0 0 7px #2087db;
+  }
   

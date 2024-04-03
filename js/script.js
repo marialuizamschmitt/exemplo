@@ -9,7 +9,8 @@ let modalView = document.querySelector('#modal-view'); //Modal para exibição d
 let notes = document.querySelector('#notes');//Lista divs com dados das notas
 let btnSaveNote = document.querySelector("#btn-save-note"); //icone para salvar nota
 let btnCloseNote = document.querySelector("#btn-close-note");//icone para fechar modal de edição de nota.
-let btnEditar = document.querySelector("#btnEditar"); // botão para editar a nota
+let btnEditar = document.querySelector("#btn-edit-note"); // botão para editar a nota
+let btnDelete = document.querySelector('#btn-delete-note'); //botão para deletar a nota
 
 
 addNote.addEventListener("click", (evt)=>{
@@ -27,7 +28,6 @@ btnCloseNote.addEventListener("click", () =>{
     document.querySelector('#input-id').value="";
 })
 
-
 btnSaveNote.addEventListener("click", (evt) =>{
     evt.preventDefault();
     let data = { 
@@ -40,9 +40,8 @@ btnSaveNote.addEventListener("click", (evt) =>{
 
 /*-----------------------FUNÇÕES----------------------*/
 
-
 const saveNote = (note) => {
-    let notes = leadNotes();
+    let notes = loadNotes();
     note.lastTime = new Date().getTime();
     if (note.id.length > 0){
         note.id=parseInt(note.id)
@@ -59,9 +58,10 @@ const saveNote = (note) => {
     }
     notes = JSON.stringify(notes);
     localStorage.setItem('notes',notes);
-};
+}; 
 
-const leadNotes = ( ) =>{
+
+const loadNotes = ( ) =>{
     let notes = localStorage.getItem('notes');
     if (!notes){
         notes = [];
@@ -74,8 +74,8 @@ const leadNotes = ( ) =>{
 }
 
 const listNotes = () => {
-    let listNotes = localStorage.getItem('notes');
-    listNotes = JSON.parse(listNotes);
+    let listNotes = loadNotes();
+
     notes.innerHTML = "";
     console.log(listNotes)
     listNotes.forEach((item) => {
@@ -102,8 +102,6 @@ const listNotes = () => {
     });
   });
 };
-
-
   const showNote = (note) => {
     notes.style.display = 'none';
     addNote.style.display = 'none';
@@ -115,22 +113,28 @@ const listNotes = () => {
     document.querySelector('#content-note')
     .appendChild(document.createElement('p')
     .appendChild(document.createTextNode(
-        new Date(note.lastTime).toLocaleDateString('pt-BR'))))
+    new Date(note.lastTime).toLocaleDateString('pt-BR'))))
+
 
         btnEditar.addEventListener("click", (evt)=>{
             evt.preventDefault();
-             notes.style.display = 'none';
-             modal.style.display = 'block';
-             modalView.style.display = 'none';
-              document.querySelector('#input-id').value = note.id;
-              document.querySelector('#input-title').value = note.title;
-              document.querySelector('#input-content').value = note.content;
+            notes.style.display = 'none';
+            modal.style.display = 'block';
+            modalView.style.display = 'none';
+            document.querySelector('#input-id').value = note.id;
+            document.querySelector('#input-title').value = note.title;
+            document.querySelector('#input-content').value = note.content;
           })
 
-
-
-
+        btnDelete.addEventListener("click", () => deleteNote(note.id));
   }
+
+const deleteNote = (noteId) => {
+    let notesList = loadNotes();
+    notesList = notesList.filter(note => note.id !== noteId);
+    localStorage.setItem('notes', JSON.stringify(notesList));
+    listNotes();
+}     
   listNotes();
 
 
